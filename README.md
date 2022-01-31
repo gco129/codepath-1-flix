@@ -25,7 +25,7 @@ Flix is an app that allows users to browse movies from the [The Movie Database A
 <img src="https://i.imgur.com/kNl0B1a.gif" width=834><br>
 
 ### Notes
-I had to reinstall the app as I was making it when I got to the part where I first had to use AsyncHttpClient in order to avoid an error. It took me some time to figure out how to change the app icon and how to make the placeholder image readable to Android (converting SVG to XML).
+I had to reinstall the app as I was making it when I got to the part where I first had to use AsyncHttpClient in order to avoid an error. It took me some time to figure out how to change the app icon and how to make the placeholder image readable to Android (converting SVG to XML). I changed the theme of the app from the default white with a purple header to a black theme.
 The placeholder image was made by me. The app icon I used, ["Movie, music, player, video icon"](https://www.iconfinder.com/icons/1564536/movie_music_player_video_icon) by [Artyom Khamitov](https://www.iconfinder.com/Kh.Artyom) is licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/). No changes were made to their art.
 
 ### Open-source libraries used
