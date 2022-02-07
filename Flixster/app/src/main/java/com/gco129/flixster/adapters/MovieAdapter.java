@@ -1,6 +1,8 @@
 package com.gco129.flixster.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -9,16 +11,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.util.Pair;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.gco129.flixster.DetailActivity;
+import com.gco129.flixster.MainActivity;
 import com.gco129.flixster.R;
 import com.gco129.flixster.models.Movie;
 
+import org.parceler.Parcels;
+
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     public static final String TAG = "MovieAdapter";
@@ -56,7 +70,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-
+        RelativeLayout container;
         TextView tvTitle;
         TextView tvOverview;
         ImageView ivPoster;
@@ -66,6 +80,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvOverview = itemView.findViewById(R.id.tvOverview);
             ivPoster = itemView.findViewById(R.id.ivPoster);
+            container = itemView.findViewById(R.id.container);
         }
 
         public void bind(Movie movie) {
@@ -87,7 +102,29 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
                 placeholderImg = R.drawable.placeholder;
             }
             // Load image, using a placeholder while it is loading
-            Glide.with(context).load(imageUrl).placeholder(placeholderImg).into(ivPoster);
+            Glide.with(context).load(imageUrl).placeholder(placeholderImg).transform(new RoundedCornersTransformation(100, 0)).into(ivPoster);
+            // Remove the play button from the foreground if the movie is popular
+            if(movie.getRating() < 8.0){
+                ivPoster.setForeground(null);
+            }
+            else{
+                ivPoster.setForeground(ContextCompat.getDrawable(context, R.drawable.ic_play_tall));
+            }
+
+            // Register click listener on whole row
+            container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Navigate to detailed activity, sending the movie object
+                    Intent i = new Intent(context, DetailActivity.class);
+                    i.putExtra("movie", Parcels.wrap(movie));
+                    // Shared element transition
+                    Pair<View, String> pTitle = Pair.create((View) tvTitle, "tTitle");
+                    Pair<View, String> pOverview = Pair.create((View) tvOverview, "tOverview");
+                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, pTitle, pOverview);
+                    context.startActivity(i, options.toBundle());
+                }
+            });
         }
     }
 }
