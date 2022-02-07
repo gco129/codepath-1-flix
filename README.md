@@ -30,8 +30,8 @@ In order for a movie to be considered popular in my version of this app, it must
 ## Open-source libraries used
 - [Android Async HTTP](https://github.com/codepath/CPAsyncHttpClient) - Simple asynchronous HTTP requests with JSON parsing
 - [Glide](https://github.com/bumptech/glide) - Image loading and caching library for Android
-- [Glide Transformations](https://github.com/wasabeef/glide-transformations) - An Android transformation library providing a variety of image transformations for Glide.
-- [Parcelable](https://github.com/johncarl81/parceler) - Android Parcelables made easy through code generation.
+- [Glide Transformations](https://github.com/wasabeef/glide-transformations) - An Android transformation library providing a variety of image transformations for Glide
+- [Parcelable](https://github.com/johncarl81/parceler) - Android Parcelables made easy through code generation
 
 ---
 
